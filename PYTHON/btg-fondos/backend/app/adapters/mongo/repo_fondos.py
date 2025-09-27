@@ -1,4 +1,4 @@
-from app.adapters.mongo.client import get_database
+from app.adapters.mongo.database import get_database
 
 class RepoFondosMongo:
     def __init__(self):
