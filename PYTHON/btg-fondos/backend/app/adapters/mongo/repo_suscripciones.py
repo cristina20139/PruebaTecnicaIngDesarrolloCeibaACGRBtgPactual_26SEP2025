@@ -62,6 +62,29 @@ class RepoSuscripcionesMongo:
         result = self.collection.insert_one(doc)
         doc["_id"] = str(result.inserted_id)
         return doc
+    
+    def listar_por_cliente(self, cliente_id: int):
+        """
+        Lista todas las suscripciones de un cliente por su ID.
+
+        Args:
+            cliente_id (int): ID del cliente.
+
+        Returns:
+            List[Suscripcion]: Lista de objetos Suscripcion.
+        """
+        docs = self.collection.find({"cliente_id": cliente_id})
+        suscripciones = []
+        for doc in docs:
+            suscripciones.append(
+                Suscripcion(
+                    cliente_id=doc["cliente_id"],
+                    fondo_id=doc["fondo_id"],
+                    monto=doc["monto"]
+                )
+            )
+        return suscripciones
+
 
     def listar(self):
         """
@@ -86,3 +109,6 @@ class RepoSuscripcionesMongo:
                 "fecha": doc.get("fecha")
             })
         return suscripciones
+    
+
+    
