@@ -31,7 +31,7 @@ repo_suscripciones = RepoSuscripcionesMongo()
 repo_trasancciones = RepoTransaccionesMongo()
 
 subscription_service = SubscripcionService(repo_clientes, repo_fondos, repo_suscripciones,repo_trasancciones)
-cliente_service = ClientesService(repo_clientes)
+clientes_service = ClientesService(repo_clientes)
 
 
 
@@ -92,7 +92,7 @@ def listar_clientes():
         list: Lista de clientes con sus atributos principales.
     """
     # Llama al servicio en vez de al repositorio
-    clientes = cliente_service.listar_clientes()
+    clientes = clientes_service.listar_clientes()
     return clientes  # ya son dicts, no necesitas .dict()
 
 
@@ -102,7 +102,7 @@ def obtener_cliente(cliente_id: int):
     Endpoint para obtener un cliente por su ID.
 
     Args:
-        cliente_id (str): Identificador del cliente.
+        cliente_id (int): Identificador del cliente.
 
     Raises:
         HTTPException: Si el cliente no existe.
@@ -110,7 +110,8 @@ def obtener_cliente(cliente_id: int):
     Returns:
         dict: Información del cliente encontrado.
     """
-    cliente = repo_clientes.obtener_cliente_por_id(cliente_id)
+    cliente = clientes_service.obtener_cliente(cliente_id)
     if not cliente:
         raise HTTPException(status_code=404, detail="Cliente no encontrado")
     return cliente
+
