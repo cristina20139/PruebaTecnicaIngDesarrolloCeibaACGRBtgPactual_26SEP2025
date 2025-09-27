@@ -36,3 +36,16 @@ class ClientesService:
             de lo contrario None.
         """
         return self.repo_clientes.obtener_cliente_por_id(cliente_id)
+    
+    def actualizar_cliente(self, cliente_id: int, datos: dict):
+        """
+        Actualiza los datos de un cliente.
+
+        Args:
+            cliente_id (int): Identificador del cliente.
+            datos (dict): Campos a actualizar.
+
+        Returns:
+            dict | None: Cliente actualizado o None si no existe.
+        """
+        return self.repo_clientes.actualizar_cliente(cliente_id, datos)    
