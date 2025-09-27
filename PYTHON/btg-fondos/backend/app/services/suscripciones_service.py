@@ -1,4 +1,5 @@
 from datetime import datetime
+from app.domain.entities import Suscripcion, Transaccion
 from app.domain.errors import ClienteNoEncontrado, FondoNoEncontrado
 
 class Suscripcion:
@@ -36,7 +37,7 @@ class SubscripcionService:
     Version: 1.0
     Since: 2025-09-27, Bogotá D.C., Colombia
     """
-    def __init__(self, repo_clientes, repo_fondos, repo_suscripciones):
+    def __init__(self, repo_clientes, repo_fondos, repo_suscripciones, repo_transacciones):
         """
         Inicializa el servicio con los repositorios de clientes, fondos y suscripciones.
 
@@ -48,6 +49,7 @@ class SubscripcionService:
         self.repo_clientes = repo_clientes
         self.repo_fondos = repo_fondos
         self.repo_suscripciones = repo_suscripciones
+        self.repo_transacciones = repo_transacciones
 
     def suscribir(self, cliente_id: int, fondo_id: int, monto: float):
         """
@@ -77,4 +79,14 @@ class SubscripcionService:
 
         suscripcion = Suscripcion(cliente_id=cliente_id, fondo_id=fondo_id, monto=monto)
         self.repo_suscripciones.crear(suscripcion)
+
+        # Guardar transacción
+        # Crear y guardar transacción
+        transaccion = Transaccion(
+            cliente_id=cliente_id,
+            fondo_id=fondo_id,
+            tipo="apertura",
+            monto=monto
+        )
+        self.repo_transacciones.crear(transaccion)       
         return suscripcion
