@@ -87,3 +87,29 @@ class RepoClientesMongo:
                 "saldo": doc.get("saldo")
             }
         return None
+    
+    def actualizar_cliente(self, cliente_id: int, datos: dict) -> dict | None:
+            """
+            Actualiza la información de un cliente por su ID.
+
+            Args:
+                cliente_id (int): ID del cliente a actualizar.
+                datos (dict): Campos a actualizar.
+
+            Returns:
+                dict | None: El cliente actualizado si existe, None en caso contrario.
+
+            Author: Aura Cristina Garzón Rodríguez
+            Version: 1.0
+            Since: 2025-09-27 18:30 GMT-5, Bogotá D.C., Colombia
+            """
+            result = self.collection.update_one(
+                {"_id": cliente_id},
+                {"$set": datos}
+            )
+
+            if result.matched_count == 0:
+                return None  # Cliente no encontrado
+
+            # Recuperar cliente actualizado
+            return self.obtener_cliente_por_id(cliente_id)    
