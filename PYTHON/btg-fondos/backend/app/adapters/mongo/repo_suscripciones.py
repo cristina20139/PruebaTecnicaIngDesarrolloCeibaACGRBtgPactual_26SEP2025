@@ -110,5 +110,18 @@ class RepoSuscripcionesMongo:
             })
         return suscripciones
     
+    def crear_fondo(self, fondo: dict) -> str:
+        """
+        Inserta un nuevo fondo en la colección 'fondos'.
+
+        Args:
+            fondo (dict): Datos del fondo con campos 'nombre', 'categoria', 'monto_minimo'.
+
+        Returns:
+            str: ID del documento creado en MongoDB.
+        """
+        result = self.collection.insert_one(fondo)
+        return str(result.inserted_id)    
+    
 
     
