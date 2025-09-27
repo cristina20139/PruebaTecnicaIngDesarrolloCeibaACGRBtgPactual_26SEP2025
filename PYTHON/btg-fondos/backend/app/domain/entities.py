@@ -25,7 +25,7 @@ class Cliente(BaseModel):
     Version: 1.0
     Since: 2025-09-27 04:37 GMT-5, Bogotá D.C., Colombia
     """
-    id: str
+    id: int
     nombre: str
     correo: str
 
@@ -42,7 +42,7 @@ class Fondo(BaseModel):
     Version: 1.0
     Since: 2025-09-27 04:37 GMT-5, Bogotá D.C., Colombia
     """
-    id: str
+    id: int
     nombre: str
     categoria: str
 

@@ -33,7 +33,7 @@ class RepoSuscripcionesMongo:
         db = get_database()
         self.collection = db["suscripciones"]
 
-    def crear(self, cliente_id: str, fondo_id: str, monto: float):
+    def crear(self, cliente_id: int, fondo_id: int, monto: float):
         """
         Crea una nueva suscripción para un cliente en un fondo específico.
 
@@ -51,8 +51,8 @@ class RepoSuscripcionesMongo:
         Since: 2025-09-27 04:37 GMT-5, Bogotá D.C., Colombia
         """
         doc = {
-            "cliente_id": str(cliente_id),
-            "fondo_id": str(fondo_id),
+            "cliente_id": cliente_id,
+            "fondo_id": fondo_id,
             "monto": monto,
             "tipo": "apertura",
             "fecha": datetime.datetime.now().isoformat()

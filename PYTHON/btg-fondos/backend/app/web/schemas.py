@@ -36,8 +36,8 @@ class SuscripcionResponse(BaseModel):
         tipo (str): Tipo de transacción (por ejemplo, "apertura").
         fecha (str): Fecha y hora de creación de la suscripción en formato ISO.
     """
-    cliente_id: str
-    fondo_id: str
+    cliente_id: int
+    fondo_id: int
     monto: float
     tipo: str
     fecha: str
