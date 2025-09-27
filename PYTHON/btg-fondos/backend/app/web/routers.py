@@ -10,8 +10,8 @@ Version: 1.0
 Since: 2025-09-27, Bogotá D.C., Colombia
 """
 
-from fastapi import APIRouter, HTTPException
-from app.web.schemas import SuscripcionRequest, SuscripcionResponse, FondoRequest, FondoResponse
+from fastapi import APIRouter, HTTPException, Body
+from app.web.schemas import SuscripcionRequest, SuscripcionResponse, FondoRequest, FondoResponse,ClienteUpdate
 from app.adapters.mongo.repo_clientes import RepoClientesMongo
 from app.adapters.mongo.repo_fondos import RepoFondosMongo
 from app.adapters.mongo.repo_suscripciones import RepoSuscripcionesMongo
@@ -185,3 +185,25 @@ def crear_fondo(request: FondoRequest):
         return FondoResponse(**fondo)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+    
+@router.put("/clientes/{cliente_id}", summary="Actualizar cliente")
+def actualizar_cliente(cliente_id: int, request: ClienteUpdate):
+    """
+    Endpoint para actualizar la información de un cliente.
+
+    Args:
+        cliente_id (int): ID del cliente a actualizar.
+        request (ClienteUpdate): Campos del cliente a modificar.
+
+    Raises:
+        HTTPException: Si el cliente no existe.
+
+    Returns:
+        dict: Cliente actualizado.
+    """
+    cliente_actualizado = clientes_service.actualizar_cliente(cliente_id, request.dict(exclude_unset=True))
+
+    if not cliente_actualizado:
+        raise HTTPException(status_code=404, detail="Cliente no encontrado")
+
+    return cliente_actualizado
