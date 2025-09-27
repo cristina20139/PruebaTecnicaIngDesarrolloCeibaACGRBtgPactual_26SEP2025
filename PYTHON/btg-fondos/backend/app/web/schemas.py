@@ -11,6 +11,7 @@ Since: 2025-09-27, Bogotá D.C., Colombia
 """
 
 from pydantic import BaseModel, Field
+from typing import Optional
 
 
 class SuscripcionRequest(BaseModel):
@@ -52,3 +53,12 @@ class FondoResponse(BaseModel):
     nombre: str
     monto_minimo: float
     categoria: str
+
+class ClienteUpdate(BaseModel):
+    nombres: Optional[str] = Field(None, example="Aura Cristina")
+    apellidos: Optional[str] = Field(None, example="Garzón Rodríguez")
+    correo_electronico: Optional[str] = Field(None, example="acgarzon@example.com")
+    telefono: Optional[str] = Field(None, example="6011234567")
+    celular: Optional[str] = Field(None, example="3001234567")
+    direccion: Optional[str] = Field(None, example="Calle 123 #45-67, Bogotá")
+    saldo: Optional[float] = Field(None, example=1500000.0)
