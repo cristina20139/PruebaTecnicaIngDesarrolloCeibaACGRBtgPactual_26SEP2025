@@ -36,3 +36,30 @@ class FondosService:
         Retorna la lista de todos los fondos disponibles.
         """
         return self.repo.listar_fondos()
+    
+    def crear_fondo(self, nombre: str, monto_minimo: float, categoria: str) -> dict:
+        """
+        Crea un nuevo fondo con validaciones de negocio.
+
+        Args:
+            nombre (str): Nombre del fondo.
+            monto_minimo (float): Monto mínimo requerido.
+            categoria (str): Categoría del fondo.
+
+        Returns:
+            dict: Fondo creado con su ID asignado.
+        """
+        if monto_minimo <= 500000:
+            raise ValueError("El monto mínimo debe ser mayor a 500000")
+
+        fondo = {
+            "nombre": nombre,
+            "monto_minimo": monto_minimo,
+            "categoria": categoria
+        }
+
+        fondo_id = self.repo.crear_fondo(fondo)
+
+        return {**fondo, "id": fondo_id}    
+    
+    
