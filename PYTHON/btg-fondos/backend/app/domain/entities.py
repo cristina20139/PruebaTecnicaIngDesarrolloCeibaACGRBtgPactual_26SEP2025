@@ -11,7 +11,10 @@ class Fondo(BaseModel):
     nombre: str
     categoria: str
 
-class Suscripcion(BaseModel):
-    cliente_id: str
-    fondo_id: str
-    fecha: datetime = datetime.utcnow()
+class Suscripcion:
+    def __init__(self, cliente_id: str, fondo_id: str, monto: float):
+        self.cliente_id = cliente_id
+        self.fondo_id = fondo_id
+        self.monto = monto
+        self.tipo = "apertura"
+        self.fecha = datetime.now().isoformat()
