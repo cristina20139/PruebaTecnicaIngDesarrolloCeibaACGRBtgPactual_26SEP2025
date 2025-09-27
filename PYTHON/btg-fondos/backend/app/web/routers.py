@@ -18,6 +18,7 @@ from app.adapters.mongo.repo_suscripciones import RepoSuscripcionesMongo
 from app.adapters.mongo.repo_transacciones import RepoTransaccionesMongo
 from app.services.clientes_service import ClientesService
 from app.services.suscripciones_service import SubscripcionService
+from app.services.transacciones_service import TransaccionesService
 from app.domain.errors import ClienteNoEncontrado, FondoNoEncontrado
 
 
@@ -29,6 +30,8 @@ repo_clientes = RepoClientesMongo()
 repo_fondos = RepoFondosMongo()
 repo_suscripciones = RepoSuscripcionesMongo()
 repo_trasancciones = RepoTransaccionesMongo()
+transacciones_service = TransaccionesService(repo_trasancciones)
+
 
 subscription_service = SubscripcionService(repo_clientes, repo_fondos, repo_suscripciones,repo_trasancciones)
 clientes_service = ClientesService(repo_clientes)
@@ -114,4 +117,23 @@ def obtener_cliente(cliente_id: int):
     if not cliente:
         raise HTTPException(status_code=404, detail="Cliente no encontrado")
     return cliente
+
+@router.get("/transacciones", summary="Consultar historial de transacciones")
+def historial_transacciones(cliente_id: int):
+    """
+    Endpoint para consultar el historial de transacciones de un cliente.
+
+    Args:
+        cliente_id (int): ID del cliente.
+
+    Raises:
+        HTTPException: Si el cliente no tiene transacciones.
+
+    Returns:
+        List[dict]: Lista de transacciones (aperturas y cancelaciones).
+    """
+    transacciones = transacciones_service.listar_transacciones_por_cliente(cliente_id)
+    if not transacciones:
+        raise HTTPException(status_code=404, detail="No se encontraron transacciones para el cliente")
+    return transacciones
 
