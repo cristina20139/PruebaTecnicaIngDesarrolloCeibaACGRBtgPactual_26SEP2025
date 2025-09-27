@@ -12,6 +12,6 @@ class RepoFondosMongo:
                 "id": str(doc.get("_id")),
                 "nombre": doc.get("nombre"),
                 "categoria": doc.get("categoria"),
-                "valor_unitario": doc.get("valor_unitario")
+                "monto_minimo": doc.get("monto_minimo")
             })
         return fondos
