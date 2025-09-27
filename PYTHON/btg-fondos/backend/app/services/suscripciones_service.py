@@ -37,19 +37,12 @@ class SubscripcionService:
     Version: 1.0
     Since: 2025-09-27, Bogotá D.C., Colombia
     """
-    def __init__(self, repo_clientes, repo_fondos, repo_suscripciones, repo_transacciones):
-        """
-        Inicializa el servicio con los repositorios de clientes, fondos y suscripciones.
-
-        Args:
-            repo_clientes: Repositorio de clientes.
-            repo_fondos: Repositorio de fondos.
-            repo_suscripciones: Repositorio de suscripciones.
-        """
+    def __init__(self, repo_clientes, repo_fondos, repo_suscripciones, repo_transacciones, notificacion_service):
         self.repo_clientes = repo_clientes
         self.repo_fondos = repo_fondos
         self.repo_suscripciones = repo_suscripciones
         self.repo_transacciones = repo_transacciones
+        self.notificacion_service = notificacion_service
 
     def suscribir(self, cliente_id: int, fondo_id: int, monto: float):
         """
@@ -74,7 +67,8 @@ class SubscripcionService:
             raise ClienteNoEncontrado(f"Cliente {cliente_id} no encontrado")
 
         fondos = self.repo_fondos.listar_fondos()
-        if not any(f["id"] == fondo_id for f in fondos):
+        fondo = next((f for f in fondos if f["id"] == fondo_id), None)
+        if not fondo:
             raise FondoNoEncontrado(f"Fondo {fondo_id} no encontrado")
 
         suscripcion = Suscripcion(cliente_id=cliente_id, fondo_id=fondo_id, monto=monto)
@@ -88,5 +82,15 @@ class SubscripcionService:
             tipo="apertura",
             monto=monto
         )
+
+        # Enviar notificación
+        mensaje = f"Hola {cliente['nombre']}, tu suscripción al fondo {fondo['nombre']} fue exitosa."
+        self.notificacion_service.enviar_email(
+            destinatario_email=cliente['correo'],
+            destinatario_nombre=cliente['nombre'],
+            asunto="Suscripción a fondo exitosa",
+            mensaje=mensaje
+        )
+
         self.repo_transacciones.crear(transaccion)       
         return suscripcion
