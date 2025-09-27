@@ -1,23 +1,37 @@
-from typing import Optional
-from app.domain.entities import Cliente
-from app.ports.repository import IRepoClientes
-from .client import get_mongo_client
+# app/adapters/mongo/repo_clientes.py
+from app.adapters.mongo.database import get_database
 
-class MongoRepoClientes(IRepoClientes):
-    def __init__(self, db_name: str = "btg_fondos"):
-        client = get_mongo_client()
-        self.collection = client[db_name]["clientes"]
+class RepoClientesMongo:
+    def __init__(self):
+        db = get_database()
+        self.collection = db["clientes"]  # colección clientes
 
-    def save(self, cliente: Cliente) -> str:
-        result = self.collection.insert_one(cliente.dict())
-        return str(result.inserted_id)
+    def listar_clientes(self):
+        clientes = []
+        for doc in self.collection.find():
+            clientes.append({
+                "id": str(doc.get("_id")),
+                "nombres": doc.get("nombres"),
+                "apellidos": doc.get("apellidos"),
+                "correo_electronico": doc.get("correo_electronico"),
+                "telefono": doc.get("telefono"),
+                "celular": doc.get("celular"),
+                "direccion": doc.get("direccion"),
+                "saldo": doc.get("saldo")
+            })
+        return clientes
 
-    def find_by_email(self, email: str) -> Optional[Cliente]:
-        doc = self.collection.find_one({"correo_electronico": email})
+    def obtener_cliente_por_id(self, cliente_id):
+        doc = self.collection.find_one({"_id": cliente_id})
         if doc:
-            return Cliente(**doc)
+            return {
+                "id": str(doc.get("_id")),
+                "nombres": doc.get("nombres"),
+                "apellidos": doc.get("apellidos"),
+                "correo_electronico": doc.get("correo_electronico"),
+                "telefono": doc.get("telefono"),
+                "celular": doc.get("celular"),
+                "direccion": doc.get("direccion"),
+                "saldo": doc.get("saldo")
+            }
         return None
-
-    def list_all(self) -> list[Cliente]:
-        docs = self.collection.find()
-        return [Cliente(**doc) for doc in docs]
