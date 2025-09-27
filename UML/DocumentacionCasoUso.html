@@ -23,56 +23,79 @@
     <h1>Documentación UML - API Fondos BTG Pactual</h1>
 
     <div class="note">
-      <strong>Nota:</strong> Este diagrama UML refleja los casos de uso principales de la API REST para manejar fondos FPV y FIC de BTG Pactual.
+      <strong>Nota:</strong> Este diagrama UML refleja todos los casos de uso principales de la API REST para manejar fondos FPV y FIC de BTG Pactual.
     </div>
 
     <h2>Actor</h2>
     <ul>
-      <li><strong>Cliente:</strong> Usuario final de la plataforma que puede consultar, suscribirse y cancelar fondos.</li>
+      <li><strong>Cliente:</strong> Usuario final de la plataforma que puede consultar, suscribirse, cancelar fondos, consultar saldo, actualizar datos y recibir notificaciones.</li>
     </ul>
 
     <h2>Casos de Uso (Use Cases)</h2>
     <ul>
-      <li><strong>Listar Fondos</strong> <code>(GET /api/fondos)</code>
+      <li><strong>1) Listar Clientes</strong> <code>(GET /api/clientes)</code>
+        <ul><li>Devuelve todos los clientes registrados.</li></ul>
+      </li>
+      <li><strong>2) Obtener Cliente por ID</strong> <code>(GET /api/clientes/{cliente_id})</code>
+        <ul><li>Proporciona información detallada de un cliente específico.</li></ul>
+      </li>
+      <li><strong>3) Actualizar Cliente</strong> <code>(PUT /api/clientes/{cliente_id})</code>
+        <ul><li>Permite actualizar la información de un cliente.</li></ul>
+      </li>
+      <li><strong>4) Listar Fondos</strong> <code>(GET /api/fondos)</code>
+        <ul><li>Devuelve todos los fondos disponibles con su información básica.</li></ul>
+      </li>
+      <li><strong>5) Ver Detalle de Fondo</strong> <code>(GET /api/fondos/{fondo_id})</code>
+        <ul><li>Proporciona información completa de un fondo específico.</li></ul>
+      </li>
+      <li><strong>6) Crear Fondo</strong> <code>(POST /api/fondos)</code>
+        <ul><li>Permite crear un nuevo fondo, definiendo su nombre, monto mínimo y categoría.</li></ul>
+      </li>
+      <li><strong>7) Actualizar Fondo</strong> <code>(PUT /api/fondos/{fondo_id})</code>
+        <ul><li>Permite actualizar información del fondo como monto mínimo o categoría.</li></ul>
+      </li>
+      <li><strong>8) Suscribirse a un Fondo</strong> <code>(POST /api/suscripciones)</code>
         <ul>
-          <li>Devuelve todos los fondos disponibles con su información básica.</li>
+          <li>Permite al cliente realizar la apertura de un fondo, validando saldo y monto mínimo.</li>
+          <li>Genera transacción de tipo "apertura".</li>
+          <li>Envía notificación por email o SMS según preferencia.</li>
         </ul>
       </li>
-      <li><strong>Ver Detalle de Fondo</strong> <code>(GET /api/fondos/{id})</code>
-        <ul>
-          <li>Proporciona información completa de un fondo específico.</li>
-        </ul>
-      </li>
-      <li><strong>Suscribirse a un Fondo</strong> <code>(POST /api/fondos/{id}/suscribirse)</code>
-        <ul>
-          <li>Permite al cliente realizar la apertura de un fondo.</li>
-        </ul>
-      </li>
-      <li><strong>Cancelar Suscripción</strong> <code>(POST /api/fondos/{id}/cancelar)</code>
+      <li><strong>9) Cancelar Suscripción</strong> <code>(POST /api/suscripciones/cancelar)</code>
         <ul>
           <li>Permite al cliente retirarse de un fondo y recuperar su inversión.</li>
+          <li>Genera transacción de tipo "cancelación".</li>
         </ul>
       </li>
-      <li><strong>Consultar Historial de Transacciones</strong> <code>(GET /api/transacciones)</code>
-        <ul>
-          <li>Muestra todas las aperturas y cancelaciones realizadas por el cliente.</li>
-        </ul>
+      <li><strong>10) Listar Suscripciones de un Cliente</strong> <code>(GET /api/suscripciones/{cliente_id})</code>
+        <ul><li>Muestra todos los fondos en los que el cliente está actualmente suscrito.</li></ul>
       </li>
-      <li><strong>Consultar Saldo Actual</strong> <code>(GET /api/saldo)</code>
-        <ul>
-          <li>Muestra el saldo disponible para nuevas suscripciones a fondos.</li>
-        </ul>
+      <li><strong>11) Consultar Historial de Transacciones</strong> <code>(GET /api/transacciones/{cliente_id})</code>
+        <ul><li>Muestra todas las aperturas y cancelaciones realizadas por el cliente.</li></ul>
+      </li>
+      <li><strong>12) Consultar Saldo Actual</strong> <code>(GET /api/saldo/{cliente_id})</code>
+        <ul><li>Muestra el saldo disponible para nuevas suscripciones a fondos.</li></ul>
+      </li>
+      <li><strong>13) Enviar Notificación</strong> <code>(POST /api/notificaciones)</code>
+        <ul><li>Envía una notificación al cliente vía email o SMS sobre una suscripción o cancelación.</li></ul>
       </li>
     </ul>
 
     <h2>Diagrama UML de Casos de Uso</h2>
     <div class="example">
+      Cliente --> Listar Clientes<br>
+      Cliente --> Obtener Cliente por ID<br>
+      Cliente --> Actualizar Cliente<br>
       Cliente --> Listar Fondos<br>
       Cliente --> Ver Detalle de Fondo<br>
+      Cliente --> Crear Fondo<br>
+      Cliente --> Actualizar Fondo<br>
       Cliente --> Suscribirse a un Fondo<br>
       Cliente --> Cancelar Suscripción<br>
+      Cliente --> Listar Suscripciones de un Cliente<br>
       Cliente --> Consultar Historial de Transacciones<br>
-      Cliente --> Consultar Saldo Actual
+      Cliente --> Consultar Saldo Actual<br>
+      Cliente --> Enviar Notificación
     </div>
 
     <h3>Reglas de Negocio Relevantes</h3>
@@ -82,6 +105,7 @@
       <li>El cliente solo puede vincularse si tiene saldo suficiente.</li>
       <li>El retiro de un fondo retorna el valor de vinculación al cliente.</li>
       <li>Se notifica al cliente vía <strong>email</strong> o <strong>SMS</strong> según su preferencia.</li>
+      <li>Se debe respetar el monto mínimo para cada fondo.</li>
     </ul>
 
     <div class="footer">Documentación generada por Aura Cristina Garzón Rodríguez</div>
