@@ -15,6 +15,7 @@ from app.web.schemas import SuscripcionRequest, SuscripcionResponse
 from app.adapters.mongo.repo_clientes import RepoClientesMongo
 from app.adapters.mongo.repo_fondos import RepoFondosMongo
 from app.adapters.mongo.repo_suscripciones import RepoSuscripcionesMongo
+from app.adapters.mongo.repo_transacciones import RepoTransaccionesMongo
 from app.services.clientes_service import ClientesService
 from app.services.suscripciones_service import SubscripcionService
 from app.domain.errors import ClienteNoEncontrado, FondoNoEncontrado
@@ -27,8 +28,9 @@ router = APIRouter(prefix="/api", tags=["Fondos y Clientes"])
 repo_clientes = RepoClientesMongo()
 repo_fondos = RepoFondosMongo()
 repo_suscripciones = RepoSuscripcionesMongo()
+repo_trasancciones = RepoTransaccionesMongo()
 
-subscription_service = SubscripcionService(repo_clientes, repo_fondos, repo_suscripciones)
+subscription_service = SubscripcionService(repo_clientes, repo_fondos, repo_suscripciones,repo_trasancciones)
 cliente_service = ClientesService(repo_clientes)
 
 
