@@ -11,11 +11,12 @@ Since: 2025-09-27, Bogotá D.C., Colombia
 """
 
 from fastapi import APIRouter, HTTPException
-from app.web.schemas import SuscripcionRequest, SuscripcionResponse
+from app.web.schemas import SuscripcionRequest, SuscripcionResponse, FondoRequest, FondoResponse
 from app.adapters.mongo.repo_clientes import RepoClientesMongo
 from app.adapters.mongo.repo_fondos import RepoFondosMongo
 from app.adapters.mongo.repo_suscripciones import RepoSuscripcionesMongo
 from app.adapters.mongo.repo_transacciones import RepoTransaccionesMongo
+from app.services.fondos_service import FondosService
 from app.services.clientes_service import ClientesService
 from app.services.suscripciones_service import SubscripcionService
 from app.services.transacciones_service import TransaccionesService
@@ -35,7 +36,7 @@ repo_trasancciones = RepoTransaccionesMongo()
 transacciones_service = TransaccionesService(repo_trasancciones)
 saldo_service = SaldoService(repo_clientes, repo_suscripciones)
 
-
+fondos_service = FondosService(repo_fondos)
 subscription_service = SubscripcionService(repo_clientes, repo_fondos, repo_suscripciones,repo_trasancciones)
 clientes_service = ClientesService(repo_clientes)
 
@@ -161,3 +162,26 @@ def consultar_saldo(cliente_id: int):
 
     return {"cliente_id": cliente_id, "saldo_disponible": saldo}
 
+@router.post("/fondos", response_model=FondoResponse, summary="Crear un nuevo fondo")
+def crear_fondo(request: FondoRequest):
+    """
+    Endpoint para crear un nuevo fondo.
+
+    Args:
+        request (FondoRequest): Datos necesarios para crear el fondo.
+
+    Raises:
+        HTTPException: Si el monto mínimo es inválido u ocurre un error en la creación.
+
+    Returns:
+        FondoResponse: Fondo creado con su ID.
+    """
+    try:
+        fondo = fondos_service.crear_fondo(
+            nombre=request.nombre,
+            monto_minimo=request.monto_minimo,
+            categoria=request.categoria
+        )
+        return FondoResponse(**fondo)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
