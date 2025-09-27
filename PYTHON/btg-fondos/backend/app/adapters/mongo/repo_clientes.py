@@ -1,5 +1,7 @@
 # app/adapters/mongo/repo_clientes.py
 from app.adapters.mongo.database import get_database
+from bson import ObjectId
+
 
 class RepoClientesMongo:
     def __init__(self):
@@ -21,11 +23,11 @@ class RepoClientesMongo:
             })
         return clientes
 
-    def obtener_cliente_por_id(self, cliente_id):
-        doc = self.collection.find_one({"_id": cliente_id})
+    def obtener_cliente_por_id(self, cliente_id: int):
+        doc = self.collection.find_one({"_id": cliente_id})  # cliente_id debe ser int
         if doc:
             return {
-                "id": str(doc.get("_id")),
+                "id": doc.get("_id"),
                 "nombres": doc.get("nombres"),
                 "apellidos": doc.get("apellidos"),
                 "correo_electronico": doc.get("correo_electronico"),
