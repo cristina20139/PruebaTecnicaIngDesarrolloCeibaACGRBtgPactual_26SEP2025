@@ -37,12 +37,12 @@ class SubscripcionService:
     Version: 1.0
     Since: 2025-09-27, Bogotá D.C., Colombia
     """
-    def __init__(self, repo_clientes, repo_fondos, repo_suscripciones, repo_transacciones, notificacion_service):
+    def __init__(self, repo_clientes, repo_fondos, repo_suscripciones, repo_transacciones):
         self.repo_clientes = repo_clientes
         self.repo_fondos = repo_fondos
         self.repo_suscripciones = repo_suscripciones
         self.repo_transacciones = repo_transacciones
-        self.notificacion_service = notificacion_service
+        
 
     def suscribir(self, cliente_id: int, fondo_id: int, monto: float):
         """
