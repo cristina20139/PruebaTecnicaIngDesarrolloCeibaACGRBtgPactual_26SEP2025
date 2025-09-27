@@ -10,6 +10,8 @@ Since: 2025-09-27 04:37 GMT-5, Bogotá D.C., Colombia
 """
 
 from app.adapters.mongo.database import get_database
+from app.domain.entities import Suscripcion
+
 import datetime
 from bson import ObjectId
 
@@ -33,7 +35,7 @@ class RepoSuscripcionesMongo:
         db = get_database()
         self.collection = db["suscripciones"]
 
-    def crear(self, cliente_id: int, fondo_id: int, monto: float):
+    def crear(self, suscripcion: Suscripcion):
         """
         Crea una nueva suscripción para un cliente en un fondo específico.
 
@@ -51,9 +53,9 @@ class RepoSuscripcionesMongo:
         Since: 2025-09-27 04:37 GMT-5, Bogotá D.C., Colombia
         """
         doc = {
-            "cliente_id": cliente_id,
-            "fondo_id": fondo_id,
-            "monto": monto,
+            "cliente_id": suscripcion.cliente_id,
+            "fondo_id": suscripcion.fondo_id,
+            "monto": suscripcion.monto,
             "tipo": "apertura",
             "fecha": datetime.datetime.now().isoformat()
         }

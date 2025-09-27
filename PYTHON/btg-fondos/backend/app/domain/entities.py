@@ -65,7 +65,7 @@ class Suscripcion:
     Since: 2025-09-27 04:37 GMT-5, Bogotá D.C., Colombia
     """
 
-    def __init__(self, cliente_id: str, fondo_id: str, monto: float):
+    def __init__(self, cliente_id: int, fondo_id: int, monto: float):
         """
         Inicializa una nueva suscripción para un cliente a un fondo.
 

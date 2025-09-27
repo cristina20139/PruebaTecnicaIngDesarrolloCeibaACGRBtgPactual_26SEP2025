@@ -16,7 +16,7 @@ class Suscripcion:
     Version: 1.0
     Since: 2025-09-27, Bogotá D.C., Colombia
     """
-    def __init__(self, cliente_id: str, fondo_id: str, monto: float):
+    def __init__(self, cliente_id: int, fondo_id: int, monto: float):
         self.cliente_id = cliente_id
         self.fondo_id = fondo_id
         self.monto = monto
@@ -24,7 +24,7 @@ class Suscripcion:
         self.fecha = datetime.now().isoformat()
 
 
-class SubscriptionService:
+class SubscripcionService:
     """
     Servicio de suscripciones de fondos.
 
@@ -49,7 +49,7 @@ class SubscriptionService:
         self.repo_fondos = repo_fondos
         self.repo_suscripciones = repo_suscripciones
 
-    def suscribir(self, cliente_id: str, fondo_id: str, monto: float):
+    def suscribir(self, cliente_id: int, fondo_id: int, monto: float):
         """
         Permite a un cliente suscribirse a un fondo.
 

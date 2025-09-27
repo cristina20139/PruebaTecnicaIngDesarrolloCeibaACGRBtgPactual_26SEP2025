@@ -45,7 +45,7 @@ class RepoFondosMongo:
         fondos = []
         for doc in self.collection.find():
             fondos.append({
-                "id": str(doc.get("_id")),
+                "id": doc.get("_id"),
                 "nombre": doc.get("nombre"),
                 "categoria": doc.get("categoria"),
                 "monto_minimo": doc.get("monto_minimo")
