@@ -19,6 +19,8 @@ from app.adapters.mongo.repo_transacciones import RepoTransaccionesMongo
 from app.services.clientes_service import ClientesService
 from app.services.suscripciones_service import SubscripcionService
 from app.services.transacciones_service import TransaccionesService
+from app.services.saldo_service import SaldoService
+
 from app.domain.errors import ClienteNoEncontrado, FondoNoEncontrado
 
 
@@ -31,6 +33,7 @@ repo_fondos = RepoFondosMongo()
 repo_suscripciones = RepoSuscripcionesMongo()
 repo_trasancciones = RepoTransaccionesMongo()
 transacciones_service = TransaccionesService(repo_trasancciones)
+saldo_service = SaldoService(repo_clientes, repo_suscripciones)
 
 
 subscription_service = SubscripcionService(repo_clientes, repo_fondos, repo_suscripciones,repo_trasancciones)
@@ -136,4 +139,25 @@ def historial_transacciones(cliente_id: int):
     if not transacciones:
         raise HTTPException(status_code=404, detail="No se encontraron transacciones para el cliente")
     return transacciones
+
+@router.get("/saldo", summary="Consultar saldo actual")
+def consultar_saldo(cliente_id: int):
+    """
+    Endpoint para consultar el saldo disponible de un cliente para nuevas suscripciones.
+
+    Args:
+        cliente_id (int): ID del cliente.
+
+    Raises:
+        HTTPException: Si el cliente no existe.
+
+    Returns:
+        dict: Saldo disponible.
+    """
+    try:
+        saldo = saldo_service.obtener_saldo(cliente_id)
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
+    return {"cliente_id": cliente_id, "saldo_disponible": saldo}
 
