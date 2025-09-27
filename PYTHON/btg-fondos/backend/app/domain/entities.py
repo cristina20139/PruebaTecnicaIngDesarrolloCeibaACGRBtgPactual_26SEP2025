@@ -83,3 +83,21 @@ class Suscripcion:
         self.monto = monto
         self.tipo = "apertura"
         self.fecha = datetime.now().isoformat()
+
+class Transaccion:
+    """
+    Representa una transacción de suscripción o cancelación de un fondo.
+
+    Attributes:
+        cliente_id (int): ID del cliente.
+        fondo_id (int): ID del fondo.
+        tipo (str): 'apertura' o 'cancelacion'.
+        monto (float): Monto de la transacción.
+        fecha (str): Fecha y hora en formato ISO.
+    """
+    def __init__(self, cliente_id: int, fondo_id: int, tipo: str, monto: float):
+        self.cliente_id = cliente_id
+        self.fondo_id = fondo_id
+        self.tipo = tipo
+        self.monto = monto
+        self.fecha = datetime.now().isoformat()        
