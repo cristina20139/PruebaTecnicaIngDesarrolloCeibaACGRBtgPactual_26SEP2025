@@ -48,7 +48,7 @@ class RepoClientesMongo:
         clientes = []
         for doc in self.collection.find():
             clientes.append({
-                "id": str(doc.get("_id")),
+                "id": doc.get("_id"),
                 "nombres": doc.get("nombres"),
                 "apellidos": doc.get("apellidos"),
                 "correo_electronico": doc.get("correo_electronico"),

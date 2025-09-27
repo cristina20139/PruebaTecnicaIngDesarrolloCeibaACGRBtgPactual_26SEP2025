@@ -15,6 +15,7 @@ from app.web.schemas import SuscripcionRequest, SuscripcionResponse
 from app.adapters.mongo.repo_clientes import RepoClientesMongo
 from app.adapters.mongo.repo_fondos import RepoFondosMongo
 from app.adapters.mongo.repo_suscripciones import RepoSuscripcionesMongo
+from app.services.clientes_service import ClientesService
 from app.services.suscripciones_service import SubscripcionService
 from app.domain.errors import ClienteNoEncontrado, FondoNoEncontrado
 
@@ -28,6 +29,7 @@ repo_fondos = RepoFondosMongo()
 repo_suscripciones = RepoSuscripcionesMongo()
 
 subscription_service = SubscripcionService(repo_clientes, repo_fondos, repo_suscripciones)
+cliente_service = ClientesService(repo_clientes)
 
 
 
@@ -87,7 +89,9 @@ def listar_clientes():
     Returns:
         list: Lista de clientes con sus atributos principales.
     """
-    return repo_clientes.listar_clientes()
+    # Llama al servicio en vez de al repositorio
+    clientes = cliente_service.listar_clientes()
+    return clientes  # ya son dicts, no necesitas .dict()
 
 
 @router.get("/clientes/{cliente_id}", summary="Obtener cliente por ID")

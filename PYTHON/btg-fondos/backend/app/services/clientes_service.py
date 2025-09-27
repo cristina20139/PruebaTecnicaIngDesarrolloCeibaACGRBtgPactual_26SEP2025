@@ -12,11 +12,8 @@ class ClientesService:
     Since: 2025-09-27, Bogotá D.C., Colombia
     """
 
-    def __init__(self):
-        """
-        Inicializa el servicio de clientes y su repositorio asociado.
-        """
-        self.repo = RepoClientesMongo()
+    def __init__(self, repo_clientes):
+        self.repo_clientes = repo_clientes
 
     def listar_clientes(self):
         """
@@ -25,7 +22,7 @@ class ClientesService:
         Returns:
             list: Lista de diccionarios con la información de cada cliente.
         """
-        return self.repo.listar_clientes()
+        return self.repo_clientes.listar_clientes()
 
     def obtener_cliente(self, cliente_id):
         """
@@ -38,4 +35,4 @@ class ClientesService:
             dict | None: Diccionario con la información del cliente si existe,
             de lo contrario None.
         """
-        return self.repo.obtener_cliente_por_id(cliente_id)
+        return self.repo_clientes.obtener_cliente_por_id(cliente_id)
