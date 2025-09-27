@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Contexto Teórico - Fondos BTG Pactual</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fafbfc; color: #23272f; margin: 0; padding: 0; }
+    .container { max-width: 900px; margin: 40px auto; background: #fff; box-shadow: 0 8px 32px rgba(0,0,0,0.08); border-radius: 10px; padding: 32px 40px; }
+    h1 { color: #1565c0; }
+    h2 { color: #2e7d32; margin-top: 32px; }
+    h3 { color: #7b1fa2; margin-top: 24px; }
+    p { margin-bottom: 12px; line-height: 1.6; }
+    ul, li { margin-bottom: 8px; }
+    code { background: #f3f3f7; padding: 2px 6px; border-radius: 4px; }
+    .note { background: #e3f2fd; border-left: 4px solid #1976d2; padding: 12px 18px; margin: 18px 0; border-radius: 5px; }
+    .important { background: #fffde7; border-left: 4px solid #fbc02d; padding: 12px 18px; margin: 18px 0; border-radius: 5px; }
+    .footer { text-align: right; color: #888; font-size: 1em; margin-top: 40px; }
+    @media (max-width: 600px) { .container { padding: 16px 8px; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Contexto Teórico - Fondos de Inversión y FPV</h1>
+
+    <div class="note">
+      <strong>Nota:</strong> Este documento explica de manera teórica la naturaleza de los fondos de inversión, FPV y FIC, su finalidad, utilidad y marco legal, contextualizando la prueba técnica de BTG Pactual.
+    </div>
+
+    <h2>1. ¿Qué es un Fondo de Inversión?</h2>
+    <p>Un <strong>fondo de inversión</strong> es un instrumento financiero que permite a múltiples inversionistas agrupar su capital para invertir en una cartera diversificada de activos, administrada por profesionales especializados. Su objetivo principal es obtener rendimientos de acuerdo con políticas de inversión previamente establecidas, diversificar riesgos y optimizar la rentabilidad del capital.</p>
+
+    <h2>2. Tipos de Fondos</h2>
+    <ul>
+      <li><strong>FPV (Fondo Voluntario de Pensión):</strong> Vehículo de inversión que permite a los clientes acumular capital adicional para su pensión, obteniendo beneficios tributarios según la legislación vigente.</li>
+      <li><strong>FIC (Fondo de Inversión Colectiva):</strong> Agrupa capital de varios inversionistas para invertir en activos locales y globales, con objetivos definidos de rendimiento, diversificación y plazos específicos.</li>
+    </ul>
+
+    <h2>3. Naturaleza Jurídica y Marco Legal</h2>
+    <p>Los fondos de inversión están regulados por la Superintendencia Financiera de Colombia y la legislación financiera vigente. En particular:</p>
+    <ul>
+      <li>Los FPV permiten deducciones tributarias y exenciones de impuestos sobre aportes hasta ciertos límites.</li>
+      <li>Los FIC se regulan como vehículos de inversión colectiva, con reglas estrictas sobre liquidez, transparencia y divulgación de información.</li>
+      <li>Toda transacción debe generar un identificador único para garantizar trazabilidad y cumplimiento regulatorio.</li>
+    </ul>
+
+    <h2>4. Finalidad y Beneficios de los Fondos</h2>
+    <p>Los fondos buscan:</p>
+    <ul>
+      <li>Proporcionar rendimientos atractivos a los inversionistas.</li>
+      <li>Diversificar riesgos mediante portafolios estructurados profesionalmente.</li>
+      <li>Permitir acceso a mercados financieros locales e internacionales que serían difíciles de alcanzar individualmente.</li>
+      <li>Ofrecer beneficios tributarios, especialmente en FPV, fomentando el ahorro a largo plazo.</li>
+      <li>Facilitar la administración y control de inversiones de manera centralizada.</li>
+    </ul>
+
+    <h2>5. Funcionamiento en la Plataforma de BTG</h2>
+    <p>En la solución planteada para BTG Pactual:</p>
+    <ul>
+      <li>El cliente puede suscribirse (apertura) y cancelar (retiro) fondos.</li>
+      <li>Se mantiene un historial completo de transacciones para cada cliente.</li>
+      <li>El sistema verifica montos mínimos y saldo disponible antes de cualquier suscripción.</li>
+      <li>Se notifica al cliente vía email o SMS sobre cada operación realizada.</li>
+    </ul>
+
+    <h2>6. Ejemplo de Fondos y Montos Mínimos</h2>
+    <table border="1" cellpadding="6" cellspacing="0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre del Fondo</th>
+          <th>Monto Mínimo</th>
+          <th>Categoría</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>FPV_BTG_PACTUAL_RECAUDADORA</td><td>COP $75.000</td><td>FPV</td></tr>
+        <tr><td>2</td><td>FPV_BTG_PACTUAL_ECOPETROL</td><td>COP $125.000</td><td>FPV</td></tr>
+        <tr><td>3</td><td>DEUDAPRIVADA</td><td>COP $50.000</td><td>FIC</td></tr>
+        <tr><td>4</td><td>FDO-ACCIONES</td><td>COP $250.000</td><td>FIC</td></tr>
+        <tr><td>5</td><td>FPV_BTG_PACTUAL_DINAMICA</td><td>COP $100.000</td><td>FPV</td></tr>
+      </tbody>
+    </table>
+
+    <h2>7. Resumen</h2>
+    <p>Los fondos de BTG Pactual permiten a los clientes:</p>
+    <ul>
+      <li>Gestionar sus inversiones de manera segura y transparente.</li>
+      <li>Acceder a beneficios tributarios y diversificación de riesgo.</li>
+      <li>Tener control total de sus aperturas, cancelaciones y saldo disponible.</li>
+      <li>Recibir notificaciones inmediatas de cada operación, asegurando información oportuna.</li>
+    </ul>
+
+    <div class="footer">Documento generado por Aura Cristina Garzón Rodríguez</div>
+  </div>
+</body>
+</html>
