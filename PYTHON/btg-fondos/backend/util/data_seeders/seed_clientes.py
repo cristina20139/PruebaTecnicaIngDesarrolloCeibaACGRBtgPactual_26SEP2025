@@ -1,3 +1,15 @@
+"""
+Módulo de generación e inserción de clientes falsos en MongoDB.
+
+Este módulo utiliza Faker para crear datos de clientes simulados
+en formato colombiano y los inserta en la colección `clientes`
+de la base de datos `btg_fondos`.
+
+Author: Aura Cristina Garzón Rodríguez
+Version: 1.0
+Since: 2025-09-27, Bogotá D.C., Colombia
+"""
+
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from faker import Faker

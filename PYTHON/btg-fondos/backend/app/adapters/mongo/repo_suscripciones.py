@@ -1,14 +1,55 @@
-# app/adapters/mongo/repo_suscripciones.py
+"""
+Repositorio de suscripciones para MongoDB.
+
+Este módulo proporciona las operaciones CRUD básicas para la colección 'suscripciones' 
+de la base de datos 'btg_fondos'.
+
+Author: Aura Cristina Garzón Rodríguez
+Version: 1.0
+Since: 2025-09-27 04:37 GMT-5, Bogotá D.C., Colombia
+"""
+
 from app.adapters.mongo.database import get_database
 import datetime
 from bson import ObjectId
 
 class RepoSuscripcionesMongo:
+    """
+    Repositorio para interactuar con la colección 'suscripciones'.
+
+    Métodos:
+        crear(cliente_id, fondo_id, monto): Crea una nueva suscripción.
+        listar(): Devuelve todas las suscripciones existentes.
+    """
+
     def __init__(self):
+        """
+        Inicializa el repositorio conectándose a la colección 'suscripciones' de MongoDB.
+
+        Author: Aura Cristina Garzón Rodríguez
+        Version: 1.0
+        Since: 2025-09-27 04:37 GMT-5, Bogotá D.C., Colombia
+        """
         db = get_database()
-        self.collection = db["suscripciones"]  # colección suscripciones
+        self.collection = db["suscripciones"]
 
     def crear(self, cliente_id: str, fondo_id: str, monto: float):
+        """
+        Crea una nueva suscripción para un cliente en un fondo específico.
+
+        Args:
+            cliente_id (str): ID del cliente.
+            fondo_id (str): ID del fondo.
+            monto (float): Monto de la inversión inicial.
+
+        Returns:
+            dict: Documento de la suscripción creada, incluyendo:
+                  id, cliente_id, fondo_id, monto, tipo, fecha
+
+        Author: Aura Cristina Garzón Rodríguez
+        Version: 1.0
+        Since: 2025-09-27 04:37 GMT-5, Bogotá D.C., Colombia
+        """
         doc = {
             "cliente_id": str(cliente_id),
             "fondo_id": str(fondo_id),
@@ -21,6 +62,17 @@ class RepoSuscripcionesMongo:
         return doc
 
     def listar(self):
+        """
+        Lista todas las suscripciones almacenadas en la colección.
+
+        Returns:
+            List[dict]: Lista de suscripciones con campos:
+                        id, cliente_id, fondo_id, monto, tipo, fecha
+
+        Author: Aura Cristina Garzón Rodríguez
+        Version: 1.0
+        Since: 2025-09-27 04:37 GMT-5, Bogotá D.C., Colombia
+        """
         suscripciones = []
         for doc in self.collection.find():
             suscripciones.append({

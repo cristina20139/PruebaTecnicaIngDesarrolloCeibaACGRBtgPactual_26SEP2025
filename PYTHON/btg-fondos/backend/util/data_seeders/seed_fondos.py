@@ -1,3 +1,14 @@
+"""
+Módulo de generación e inserción de fondos en MongoDB.
+
+Este módulo define una lista de fondos de inversión simulados
+y los inserta en la colección `fondos` de la base de datos `btg_fondos`.
+
+Author: Aura Cristina Garzón Rodríguez
+Version: 1.0
+Since: 2025-09-27, Bogotá D.C., Colombia
+"""
+
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
