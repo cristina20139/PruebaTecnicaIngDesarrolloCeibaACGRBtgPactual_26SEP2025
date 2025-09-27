@@ -10,7 +10,7 @@ Version: 1.0
 Since: 2025-09-27, Bogotá D.C., Colombia
 """
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class SuscripcionRequest(BaseModel):
@@ -41,3 +41,14 @@ class SuscripcionResponse(BaseModel):
     monto: float
     tipo: str
     fecha: str
+
+class FondoRequest(BaseModel):
+    nombre: str = Field(..., example="Fondo de Inversión ACGR")
+    monto_minimo: float = Field(..., gt=0, example=1000.0)
+    categoria: str = Field(..., example="Renta fija")
+
+class FondoResponse(BaseModel):
+    id: int
+    nombre: str
+    monto_minimo: float
+    categoria: str
