@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Documentación UML - Fondos BTG Pactual</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fafbfc; color: #23272f; margin: 0; padding: 0; }
+    .container { max-width: 850px; margin: 40px auto; background: #fff; box-shadow: 0 8px 32px rgba(0,0,0,0.08); border-radius: 10px; padding: 32px 40px; }
+    h1 { color: #1565c0; }
+    h2 { color: #2e7d32; margin-top: 32px; }
+    h3 { color: #7b1fa2; margin-top: 24px; }
+    ul, li { margin-bottom: 8px; }
+    code, pre { background: #f3f3f7; padding: 3px 7px; border-radius: 4px; font-size: 1em; color: #222; }
+    .note { background: #e3f2fd; border-left: 4px solid #1976d2; padding: 12px 18px; margin: 18px 0; border-radius: 5px; }
+    .important { background: #fffde7; border-left: 4px solid #fbc02d; padding: 12px 18px; margin: 18px 0; border-radius: 5px; }
+    .example { background: #fce4ec; border-left: 4px solid #c2185b; padding: 12px 18px; margin: 18px 0; border-radius: 5px; font-family: monospace; }
+    .footer { text-align: right; color: #888; font-size: 1em; margin-top: 40px; }
+    @media (max-width: 600px) { .container { padding: 16px 8px; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Documentación UML - API Fondos BTG Pactual</h1>
+
+    <div class="note">
+      <strong>Nota:</strong> Este diagrama UML refleja los casos de uso principales de la API REST para manejar fondos FPV y FIC de BTG Pactual.
+    </div>
+
+    <h2>Actor</h2>
+    <ul>
+      <li><strong>Cliente:</strong> Usuario final de la plataforma que puede consultar, suscribirse y cancelar fondos.</li>
+    </ul>
+
+    <h2>Casos de Uso (Use Cases)</h2>
+    <ul>
+      <li><strong>Listar Fondos</strong> <code>(GET /api/fondos)</code>
+        <ul>
+          <li>Devuelve todos los fondos disponibles con su información básica.</li>
+        </ul>
+      </li>
+      <li><strong>Ver Detalle de Fondo</strong> <code>(GET /api/fondos/{id})</code>
+        <ul>
+          <li>Proporciona información completa de un fondo específico.</li>
+        </ul>
+      </li>
+      <li><strong>Suscribirse a un Fondo</strong> <code>(POST /api/fondos/{id}/suscribirse)</code>
+        <ul>
+          <li>Permite al cliente realizar la apertura de un fondo.</li>
+        </ul>
+      </li>
+      <li><strong>Cancelar Suscripción</strong> <code>(POST /api/fondos/{id}/cancelar)</code>
+        <ul>
+          <li>Permite al cliente retirarse de un fondo y recuperar su inversión.</li>
+        </ul>
+      </li>
+      <li><strong>Consultar Historial de Transacciones</strong> <code>(GET /api/transacciones)</code>
+        <ul>
+          <li>Muestra todas las aperturas y cancelaciones realizadas por el cliente.</li>
+        </ul>
+      </li>
+      <li><strong>Consultar Saldo Actual</strong> <code>(GET /api/saldo)</code>
+        <ul>
+          <li>Muestra el saldo disponible para nuevas suscripciones a fondos.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2>Diagrama UML de Casos de Uso</h2>
+    <div class="example">
+      Cliente --> Listar Fondos<br>
+      Cliente --> Ver Detalle de Fondo<br>
+      Cliente --> Suscribirse a un Fondo<br>
+      Cliente --> Cancelar Suscripción<br>
+      Cliente --> Consultar Historial de Transacciones<br>
+      Cliente --> Consultar Saldo Actual
+    </div>
+
+    <h3>Reglas de Negocio Relevantes</h3>
+    <ul>
+      <li>El monto inicial del cliente es <code>COP $500.000</code>.</li>
+      <li>Cada transacción genera un identificador único.</li>
+      <li>El cliente solo puede vincularse si tiene saldo suficiente.</li>
+      <li>El retiro de un fondo retorna el valor de vinculación al cliente.</li>
+      <li>Se notifica al cliente vía <strong>email</strong> o <strong>SMS</strong> según su preferencia.</li>
+    </ul>
+
+    <div class="footer">Documentación generada por Aura Cristina Garzón Rodríguez</div>
+  </div>
+</body>
+</html>
