@@ -84,13 +84,15 @@ class SubscripcionService:
         )
 
         # Enviar notificación
-        mensaje = f"Hola {cliente['nombre']}, tu suscripción al fondo {fondo['nombre']} fue exitosa."
-        self.notificacion_service.enviar_email(
-            destinatario_email=cliente['correo'],
-            destinatario_nombre=cliente['nombre'],
-            asunto="Suscripción a fondo exitosa",
-            mensaje=mensaje
-        )
+        mensaje = f"Hola {cliente.get('nombre', cliente.get('nombres', 'Cliente'))}, tu suscripción al fondo {fondo.get('nombre', 'Fondo')} fue exitosa."
+
+            
+        #self.notificacion_service.enviar_email(
+        #    destinatario_email=cliente.get('correo', ''),
+        #    destinatario_nombre=cliente.get('nombre', cliente.get('nombres', 'Cliente')),
+        #    asunto="Suscripción a fondo exitosa",
+        #    mensaje=mensaje
+        #)
 
         self.repo_transacciones.crear(transaccion)       
         return suscripcion
