@@ -89,4 +89,10 @@ const resources = [
     icon: "💰",
     internal: true,
   },
+  {
+    href: "/clientes", // nueva ruta interna para ver clientes
+    text: "Clientes",
+    icon: "👥",
+    internal: true,
+  },
 ];
