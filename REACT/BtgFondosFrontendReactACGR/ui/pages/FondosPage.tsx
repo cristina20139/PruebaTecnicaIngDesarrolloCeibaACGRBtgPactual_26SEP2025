@@ -15,7 +15,7 @@ export default function FondosPage() {
       <ul>
         {fondos.map(f => (
           <li key={f.id}>
-            {f.nombre} - {f.categoria} - Mínimo: {f.montoMinimo}
+            {f.nombre} - {f.categoria} - Mínimo: {f.monto_minimo}
           </li>
         ))}
       </ul>
