@@ -76,5 +76,11 @@ const resources = [
     text: "Listar Fondos",
     icon: "📂",
     internal: true,
+  },,
+  {
+    href: "/crear-fondo", // nueva ruta interna
+    text: "Crear Fondo",
+    icon: "➕",
+    internal: true,
   },
 ];
